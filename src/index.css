@@ -1,0 +1,66 @@
+@import "tailwindcss";
+
+@layer utilities {
+  /* Text Outline Effect जो व्हिडिओमध्ये दिसतो */
+  .text-outline {
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.08);
+    color: transparent;
+  }
+
+  /* व्हिडिओमधील फिरणारा मजकूर (Marquee) */
+  @keyframes marquee {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-100%); }
+  }
+
+  @keyframes marquee2 {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(0%); }
+  }
+
+  .animate-marquee {
+    animation: marquee 35s linear infinite;
+  }
+
+  .animate-marquee2 {
+    animation: marquee2 35s linear infinite;
+  }
+
+  /* Vinyl Record आणि फिरणाऱ्या बॅजसाठी स्लो रोटेशन */
+  .animate-spin-slow {
+    animation: spin 25s linear infinite;
+  }
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .animate-marquee {
+    animation: marquee 25s linear infinite;
+  }
+
+  @keyframes marquee {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-50%); }
+  }
+}
+
+@layer utilities {
+  .animate-marquee {
+    animation: marquee 35s linear infinite;
+  }
+  .animate-marquee-reverse {
+    animation: marquee-reverse 35s linear infinite;
+  }
+
+  @keyframes marquee {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-50%); }
+  }
+  @keyframes marquee-reverse {
+    0% { transform: translateX(-50%); }
+    100% { transform: translateX(0%); }
+  }
+}
