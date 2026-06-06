@@ -1,3 +1,4 @@
+'use client';
 import React, { useState } from 'react';
 
 const cocktailsData = [
@@ -14,6 +15,12 @@ const cocktailsData = [
   { name: "Reeba's Hot Toddy", desc: 'Rich, soul-warming blend of dark spirits and aromatic tea.', img: 'https://www.babareeba.club/assets/16-CYWSOGKn.png' }
 ];
 
+const formattedCocktails = cocktailsData.reduce((acc, current) => {
+  acc.push({ name: 'COCKTAILS', isText: true });
+  acc.push(current);
+  return acc;
+}, []);
+
 const menuCategories = [
   {
     id: 'food',
@@ -21,11 +28,13 @@ const menuCategories = [
     isReverse: false,
     items: [
       { name: 'FOOD', isText: true },
-      { name: 'Signature Dish 1', desc: 'Delicious premium lounge culinary craft.', img: 'https://www.babareeba.club/assets/portfolio-2-B9bJUlp2.png' },
+      { name: 'Gourmet Sliders', desc: 'Juicy premium mini burgers with artisan cheese.', img: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=500&q=80' },
       { name: 'FOOD', isText: true },
-      { name: 'Signature Dish 2', desc: 'Finest ingredients cooked to perfection.', img: 'https://www.babareeba.club/assets/portfolio-3-nQa-6nt-.png' },
+      { name: 'Tapas Platter', desc: 'Perfectly seasoned lounge-style dynamic starters.', img: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=500&q=80' },
       { name: 'FOOD', isText: true },
-      { name: 'Signature Dish 3', desc: 'Exquisite plating and ultimate taste.', img: 'https://www.babareeba.club/assets/portfolio-5-BiZJQZAo.png' },
+      { name: 'Artisan Flatbread', desc: 'Freshly baked with exotic toppings and fine herbs.', img: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=500&q=80' },
+      { name: 'FOOD', isText: true },
+      { name: 'Signature Dessert', desc: 'A rich culinary sweet finish to your luxury dine.', img: 'https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=500&q=80' }
     ]
   },
   {
@@ -33,8 +42,7 @@ const menuCategories = [
     title: 'COCKTAILS',
     isReverse: true,
     items: [
-      { name: 'COCKTAILS', isText: true },
-      ...cocktailsData,
+      ...formattedCocktails,
       { name: 'COCKTAILS', isText: true }
     ]
   },
@@ -44,9 +52,13 @@ const menuCategories = [
     isReverse: false,
     items: [
       { name: 'AMBIANCE', isText: true },
-      { name: 'Lounge Area', desc: 'Premium luxury seating experience.', img: 'https://www.babareeba.club/assets/portfolio-9-vQTu5WP1.png' },
+      { name: 'Main Bar Counter', desc: 'Where the premium mixology magic happens.', img: 'https://www.babareeba.club/assets/portfolio-10-Davww4zy.png' },
       { name: 'AMBIANCE', isText: true },
-      { name: 'Bar Counter', desc: 'Where the magic happens.', img: 'https://www.babareeba.club/assets/portfolio-10-Davww4zy.png' },
+      { name: 'Premium Bar Lounge', desc: 'Sophisticated design crafted for beautiful nights.', img: 'https://www.babareeba.club/assets/portfolio-8-_OF5oWFU.png' },
+      { name: 'AMBIANCE', isText: true },
+      { name: 'Luxury Spirit Display', desc: 'Exquisite neon backlighting showcasing elite liquor collections.', img: 'https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=500&q=80' },
+      { name: 'AMBIANCE', isText: true },
+      { name: 'Elegant Bar Stools', desc: 'Perfect minimalist aesthetic seating arrangements.', img: 'https://images.unsplash.com/photo-1574096079513-d8259312b785?auto=format&fit=crop&w=500&q=80' }
     ]
   }
 ];
@@ -67,7 +79,7 @@ const AccordionMenu = () => {
         }
         .marquee-track {
           display: flex;
-          gap: 16px; /* गॅप थोडा कमी केला आहे */
+          gap: 16px;
           width: max-content;
         }
       `}</style>
@@ -78,24 +90,25 @@ const AccordionMenu = () => {
             const isOpen = activeCategory === cat.id;
 
             return (
-              <div key={cat.id} className="border-b border-neutral-800">
-                {/* हेडिंग बटन */}
-                <button
-                  onClick={() => setActiveCategory(isOpen ? null : cat.id)}
-                  className="w-full py-12 text-center block focus:outline-none relative"
-                >
-                  <h2 className={`text-6xl md:text-8xl font-serif font-bold uppercase tracking-tighter transition-all duration-350 ${isOpen ? 'text-neutral-400' : 'text-white'}`}>
+              <div 
+                key={cat.id} 
+                className="border-b border-neutral-900 transition-colors duration-300"
+                onMouseEnter={() => setActiveCategory(cat.id)}
+                onMouseLeave={() => setActiveCategory(null)}
+              >
+                
+                <div className="w-full py-10 text-center block relative cursor-pointer select-none">
+                  <h2 className={`text-6xl md:text-8xl font-serif font-bold uppercase tracking-tighter transition-all duration-350 ${isOpen ? 'text-white scale-102' : 'text-neutral-700'}`}>
                     {cat.title}
                   </h2>
-                  <span className="absolute left-6 top-1/2 -translate-y-1/2 text-xs text-neutral-600 tracking-widest uppercase hidden md:inline">{cat.title}</span>
-                  <span className="absolute right-6 top-1/2 -translate-y-1/2 text-xs text-neutral-600 tracking-widest uppercase hidden md:inline">{cat.title}</span>
-                </button>
+                  <span className="absolute left-6 top-1/2 -translate-y-1/2 text-xs text-neutral-800 tracking-widest uppercase hidden md:inline">{cat.title}</span>
+                  <span className="absolute right-6 top-1/2 -translate-y-1/2 text-xs text-neutral-800 tracking-widest uppercase hidden md:inline">{cat.title}</span>
+                </div>
 
-                {/* इमेज गॅलरी सेक्शन */}
                 <div
                   className="overflow-hidden transition-all duration-500 ease-in-out"
                   style={{
-                    maxHeight: isOpen ? '450px' : '0px', // उंची कमी केली
+                    maxHeight: isOpen ? '240px' : '0px',
                     opacity: isOpen ? 1 : 0,
                     paddingBottom: isOpen ? '32px' : '0px'
                   }}
@@ -104,24 +117,21 @@ const AccordionMenu = () => {
                     <div
                       className="marquee-track"
                       style={{
-                        animation: `${cat.isReverse ? 'customMarqueeReverse' : 'customMarquee'} 30s linear infinite`
+                        animation: `${cat.isReverse ? 'customMarqueeReverse' : 'customMarquee'} ${cat.id === 'cocktails' ? '38s' : '30s'} linear infinite`
                       }}
                     >
                       {[...cat.items, ...cat.items].map((item, i) => (
                         <div
                           key={i}
-                          /* इमेजची साईझ इथे लहान केली आहे: मोबाईलवर w-[220px] h-[300px] आणि मोठ्या स्क्रीनवर w-[280px] h-[360px] */
-                          className="flex-shrink-0 w-[220px] h-[300px] md:w-[280px] md:h-[360px] rounded-xl overflow-hidden border border-neutral-900 bg-neutral-900 relative group shadow-2xl"
+                          className="flex-shrink-0 w-[160px] h-[100px] md:w-[320px] md:h-[180px] rounded-xl overflow-hidden border border-neutral-900 bg-neutral-900 relative group shadow-2xl"
                         >
                           {item.isText ? (
-                            /* पांढरे टेक्स्ट कार्ड */
                             <div className="w-full h-full flex items-center justify-center bg-white text-black px-4">
-                              <span className="text-3xl md:text-4xl font-serif font-black tracking-widest uppercase text-center select-none">
+                              <span className="text-lg md:text-2xl font-serif font-black tracking-widest uppercase text-center select-none">
                                 {item.name}
                               </span>
                             </div>
                           ) : (
-                            /* इमेज कार्ड */
                             <>
                               <img
                                 src={item.img}
@@ -129,9 +139,9 @@ const AccordionMenu = () => {
                                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                                 loading="lazy"
                               />
-                              <div className="absolute bottom-0 left-0 p-4 bg-gradient-to-t from-black via-black/80 to-transparent w-full">
-                                <h4 className="text-white text-lg font-bold mb-0.5">{item.name}</h4>
-                                <p className="text-neutral-400 text-xs overflow-hidden text-ellipsis whitespace-normal line-clamp-2">{item.desc}</p>
+                              <div className="absolute bottom-0 left-0 p-3 bg-gradient-to-t from-black via-black/80 to-transparent w-full">
+                                <h4 className="text-white text-xs md:text-base font-bold mb-0.5">{item.name}</h4>
+                                <p className="text-neutral-400 text-[9px] md:text-xs overflow-hidden text-ellipsis whitespace-normal line-clamp-1 md:line-clamp-2">{item.desc}</p>
                               </div>
                             </>
                           )}
@@ -140,6 +150,7 @@ const AccordionMenu = () => {
                     </div>
                   </div>
                 </div>
+
               </div>
             );
           })}
