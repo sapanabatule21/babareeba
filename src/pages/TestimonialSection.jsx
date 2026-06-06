@@ -8,7 +8,7 @@ const TESTIMONIALS = [
     quote: "The vibe is just perfect. Sitting with friends and enjoying the view, it feels like a different world."
   },
   {
-    image: "src/assets/images 2.jpg", 
+    image: "src/assets/image-2.jpg", 
     quote: "Sophistication at its best. A perfect spot for a night out with friends and incredible ambiance."
   },
   {
